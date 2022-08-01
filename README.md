@@ -30,3 +30,8 @@ This is an example of the Blazor app passing data back to the Flex agent UI pare
 # Running Locally
 Open the [/blazor-c#-app](/blazor-c%23-app) in Visual Studio and run the project in debug mode. It should load the page at http://localhost:5001.
 
+Next follow the instructions on the [/blazor-plugin](https://github.com/mdvickst/Flex-Blazor-Integration/tree/main/blazor-plugin#readme) page to setup and install the plugin in Flex. 
+
+Then navigate to https://flex.twilio.com and log in as an agent and you should see the Blazor App loaded in the CRM panel. 
+
+Modify your Studio flow to pass in the `customer` and `phone` attributes as seen [above](#customer-information). 
