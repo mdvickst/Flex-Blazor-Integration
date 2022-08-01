@@ -1,0 +1,58 @@
+﻿@inject IJSRuntime JSRuntime;
+
+@page "/"
+
+<h2>Customer Information</h2>
+<span style="font-weight:bold">From Number: </span><label>@fromNumber</label> <br />
+<span style="font-weight:bold">Customer Name: </span><label>@customerName</label>
+<input type="hidden" @bind="conferenceSid" id="conferenceSid" />
+<hr />
+<h2>Next Actions</h2>
+<div class="form-group">
+    <label>Phone Number</label>
+    <input type="text" class="form-control" @bind="phoneNumber" />
+</div>
+<button class="btn btn-secondary" @onclick="TransferCall">Transfer Call</button>
+
+@code{
+
+    private string phoneNumber = "+17048193222";
+    private string customerName = "";
+    private string fromNumber = "";
+    private string conferenceSid = "";
+
+    private async Task TransferCall()
+    {
+        await JSRuntime.InvokeVoidAsync("interopFunctions.initiateTransfer", phoneNumber, conferenceSid);
+    }
+
+    protected async override Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            await JSRuntime.InvokeVoidAsync("interopFunctions.registerIndexComponent",
+              DotNetObjectReference.Create(this));
+        }
+    }
+
+    [JSInvokable]
+    public void SetCustomerName(string name)
+    {
+        this.customerName = name;
+        StateHasChanged();
+    }
+
+    [JSInvokable]
+    public void SetFromNumber(string number)
+    {
+        this.fromNumber = number;
+        StateHasChanged();
+    }
+
+    [JSInvokable]
+    public void SetConferenceSid(string confSid)
+    {
+        this.conferenceSid = confSid;
+        StateHasChanged();
+    }
+}
