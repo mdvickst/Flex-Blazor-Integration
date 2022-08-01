@@ -20,4 +20,13 @@ The next actions section accepts an E.164 phone number to transfer the call too.
 This is an example of the Blazor app passing data back to the Flex agent UI parent window. 
 
 
-/blazor-plugin contains the Flex Plugin which loads
+
+## Blazor Plugin
+(/blazor-plugin)[/blazor-plugin] contains the Flex Plugin which loads the Blazor C# App running locally at http://localhost:5001 into the CRM panel. It connects follow Flex Actions to the Blazor app using window.postMessage() javascript method:
+- **afterAcceptTask**: After the agent accepts a task, post a message to the Blazor iFrame with the task attributes, conferenceSid and taskSid
+- **afterSelectTask**: If the agent slects a different task, post a message to the Blazor iFrame with the new tasks attributes, conferenceSid and taskSid
+- **afterCompleteTask**: Once the task is completed, send a message to the Blzaor iFrame to clear out the task and conference info. 
+
+# Running Locally
+Open the [/blazor-c#-app](/blazor-c%23-app) in Visual Studio and run the project in debug mode. It should load the page at http://localhost:5001.
+
